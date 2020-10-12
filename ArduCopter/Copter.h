@@ -990,6 +990,7 @@ private:
 #if MODE_ZIGZAG_ENABLED == ENABLED
     ModeZigZag mode_zigzag;
 #endif
+    ModeDrawStar mode_DrawStar;
 #if MODE_AUTOROTATE_ENABLED == ENABLED
     ModeAutorotate mode_autorotate;
 #endif
