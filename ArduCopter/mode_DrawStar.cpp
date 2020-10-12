@@ -65,10 +65,12 @@ void ModeDrawStar::pos_control_run()
 {
     // process pilot's yaw input
     float target_yaw_rate = 0;
-    if (!copter.failsafe.radio) {
+    if (!copter.failsafe.radio)
+    {
         // get pilot's desired yaw rate
         target_yaw_rate = get_pilot_desired_yaw_rate(channel_yaw->get_control_in());
-        if (!is_zero(target_yaw_rate)) {
+        if (!is_zero(target_yaw_rate))
+        {
             auto_yaw.set_mode(AUTO_YAW_HOLD);
         }
     }
@@ -100,4 +102,5 @@ void ModeDrawStar::pos_control_run()
         attitude_control->input_euler_angle_roll_pitch_yaw(wp_nav->get_roll(), wp_nav->get_pitch(), auto_yaw.yaw(), true);
     }
 }
+
 
