@@ -141,6 +141,7 @@ const AP_Scheduler::Task Copter::scheduler_tasks[] = {
 #endif
     SCHED_TASK_CLASS(AP_Notify,            &copter.notify,              update,          50,  90),
     SCHED_TASK(one_hz_loop,            1,    100),
+	SCHED_TASK(update_OpenMV,        400,    100),
     SCHED_TASK(ekf_check,             10,     75),
     SCHED_TASK(check_vibration,       10,     50),
     SCHED_TASK(gpsglitch_check,       10,     50),
@@ -316,6 +317,13 @@ void Copter::throttle_loop()
     update_dynamic_notch();
 }
 
+
+void Copter::update_OpenMV(void)
+{
+	openmv.update();
+}
+
+
 // update_batt_compass - read battery and compass
 // should be called at 10hz
 void Copter::update_batt_compass(void)
@@ -469,6 +477,11 @@ void Copter::one_hz_loop()
 #endif
 
     AP_Notify::flags.flying = !ap.land_complete;
+
+    gcs().send_text(MAV_SEVERITY_CRITICAL,
+    				"OpenMV X:%d Y:%d",
+    				openmv.cx,
+					openmv.cy);
 }
 
 // called at 50hz

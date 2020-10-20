@@ -67,6 +67,7 @@
 #include <AP_TempCalibration/AP_TempCalibration.h>
 #include <AC_AutoTune/AC_AutoTune.h>
 #include <AP_Common/AP_FWVersion.h>
+#include <AP_OpenMV/AP_OpenMV.h>
 
 // Configuration
 #include "defines.h"
@@ -255,7 +256,7 @@ private:
 
     // main loop scheduler
     AP_Scheduler scheduler{FUNCTOR_BIND_MEMBER(&Copter::fast_loop, void)};
-
+    AP_OpenMV openmv{};
     // used to detect MAVLink acks from GCS to stop compassmot
     uint8_t command_ack_counter;
 
@@ -660,6 +661,7 @@ private:
     void rc_loop();
     void throttle_loop();
     void update_batt_compass(void);
+    void update_OpenMV(void);
     void fourhundred_hz_logging();
     void ten_hz_logging_loop();
     void twentyfive_hz_logging();
