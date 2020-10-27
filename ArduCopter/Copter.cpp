@@ -346,7 +346,7 @@ void Copter::update_OpenMV(void)
 
     static uint32_t last_set_pos_target_time_ms = 0;
     Vector3f target = Vector3f(0, 0, 0);
-    if(openmv.update() || sim_openmv_new_data) {
+    if(sim_openmv_new_data) {
         Log_Write_OpenMV();
 
         if(control_mode != Mode::Number::GUIDED)
@@ -534,6 +534,7 @@ void Copter::one_hz_loop()
     AP_Notify::flags.flying = !ap.land_complete;
 
     gcs().send_text(MAV_SEVERITY_ALERT, "OpenMV X:%d Y:%d", openmv.cx, openmv.cy);
+//    gcs().send_text(MAV_SEVERITY_ALERT, "test");
 }
 
 // called at 50hz

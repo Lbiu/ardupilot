@@ -102,13 +102,13 @@ struct PACKED log_OpenMV {
 // Write an OpenMV packet
 void Copter::Log_Write_OpenMV()
 {
-    struct log_OpenMV pkt = {
+    struct log_OpenMV pkt_omv = {
         LOG_PACKET_HEADER_INIT(LOG_OPENMV_MSG),
         time_us         : AP_HAL::micros64(),
-        cx              : openmv.cx,
+        cx              : openmv.cx ,
         cy              : openmv.cy
     };
-    logger.WriteBlock(&pkt, sizeof(pkt));
+    logger.WriteBlock(&pkt_omv, sizeof(pkt_omv));
 }
 
 struct PACKED log_MotBatt {
@@ -502,6 +502,8 @@ const struct LogStructure Copter::log_structure[] = {
     { LOG_PRECLAND_MSG, sizeof(log_Precland),
       "PL",    "QBBfffffffIIB",    "TimeUS,Heal,TAcq,pX,pY,vX,vY,mX,mY,mZ,LastMeasMS,EKFOutl,Est", "s--mmnnmmms--","F--BBBBBBBC--" },
 #endif
+	{ LOG_OPENMV_MSG, sizeof(log_OpenMV),
+	  "OMV", "QBB",  "TimeUS,cx,cy", "s--", "F--" },
     { LOG_SYSIDD_MSG, sizeof(log_SysIdD),
       "SIDD", "Qfffffffff",  "TimeUS,Time,Targ,F,Gx,Gy,Gz,Ax,Ay,Az", "ss-zkkkooo", "F---------" },
     { LOG_SYSIDS_MSG, sizeof(log_SysIdS),
